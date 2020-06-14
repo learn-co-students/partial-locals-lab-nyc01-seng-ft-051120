@@ -20,9 +20,18 @@ class StudentsController < ApplicationController
     @student = Student.find(params[:id])
   end
 
+  
   def index
-    @students = Student.all
+    # @students = Student.search(params[:query])
+    @students = Student.where("name LIKE ?", "%#{params[:query]}%")
+    render 'index'
   end
+
+
+# params[:search] = "abcdef"
+
+  
+
 
   def student_params
     params.require(:student).permit(:name, :birthday, :hometown)
